@@ -65,6 +65,9 @@ export default {
     padding: 0px 20px;
     display: flex;
     flex-flow: row wrap;
+    .label-item:hover{
+      transform: scale(1.1);
+    }
     .label-item{
       background-color: rgba(255, 255, 255, 0.2);
       color: #fff;

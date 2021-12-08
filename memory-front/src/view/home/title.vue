@@ -13,7 +13,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .title-container{
+  width: 250px;
   height: 120px;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background-color: #1f1d2b;
   .title-content{
     width: 100%;
     text-align: center;

@@ -40,6 +40,7 @@ export default {
 <style lang="less" scoped>
 .menu-container{
   width: 100%;
+  margin-top: 120px;
   hr{
     margin: 0 auto;
     margin-top: 40px;
