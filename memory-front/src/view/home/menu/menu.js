@@ -1,7 +1,7 @@
 export default [
   {
     id: "0",
-    label: "Memory",
+    label: "memorys",
     target: "home",
     iconDefault: require("@/assets/icons/home.png"),
     iconFocus: require("@/assets/icons/home-cur.png"),
@@ -22,7 +22,7 @@ export default [
   {
     id: "2",
     label: "我的收藏",
-    target: "myCollection",
+    target: "collections",
     iconDefault: require("@/assets/icons/myCollection.png"),
     iconFocus: require("@/assets/icons/myCollection-cur.png"),
     bgcDefault: "rgba(255, 255, 255, 0.2)",
@@ -32,7 +32,7 @@ export default [
   {
     id: "3",
     label: "系统维护",
-    target: "myCollection",
+    target: "settings",
     iconDefault: require("@/assets/icons/setting.png"),
     iconFocus: require("@/assets/icons/setting-cur.png"),
     bgcDefault: "rgba(255, 255, 255, 0.2)",

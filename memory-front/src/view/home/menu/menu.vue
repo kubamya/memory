@@ -33,6 +33,9 @@ export default {
           this.menuData[i].focus = false
         }
       }
+
+      // 父组件通信
+      this.$emit('menuClick', item)
     }
   }
 }

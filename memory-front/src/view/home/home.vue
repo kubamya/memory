@@ -2,16 +2,21 @@
   <div class="home-container">
     <div class="home-left-container">
       <Title></Title>
-      <Menu></Menu>
+      <Menu @menuClick="menuClick"></Menu>
       <Labels></Labels>
       <Links></Links>
     </div>
     <div class="home-right-container">
       <div class="home-top-container">
-        <Search></Search>
+        <Search v-if="currentPage == 'home'"></Search>
         <User></User>
       </div>
-      <div class="home-content-container"></div>
+      <div class="home-content-container">
+        <Content v-if="currentPage == 'home'"></Content>
+        <MyPassage v-if="currentPage == 'myPassage'"></MyPassage>
+        <Collectons v-if="currentPage == 'collections'"></Collectons>
+        <Settings v-if="currentPage == 'settings'"></Settings>
+      </div>
     </div>
   </div>
 </template>
@@ -22,6 +27,10 @@ import Labels from './labels.vue'
 import Links from './links.vue'
 import Search from './search.vue'
 import User from './user.vue'
+import Content from '../content/content.vue'
+import Collectons from '../collections.vue'
+import MyPassage from '../myPassage.vue'
+import Settings from '../setting/settings.vue'
 export default {
   components: {
     'Title': Title,
@@ -29,7 +38,21 @@ export default {
     'Labels': Labels,
     'Links': Links,
     'Search': Search,
-    'User': User
+    'User': User,
+    'Content': Content,
+    'Collectons': Collectons,
+    'MyPassage': MyPassage,
+    'Settings': Settings
+  },
+  data () {
+    return {
+      currentPage: 'home'
+    }
+  },
+  methods: {
+    menuClick (item) {
+      this.currentPage = item.target
+    }
   }
 }
 </script>
@@ -51,7 +74,7 @@ export default {
     .home-content-container{
       width: 100%;
       height: calc(100% - 100px);
-      overflow: hidden;
+      overflow: auto;
     }
   }
   .home-left-container{
