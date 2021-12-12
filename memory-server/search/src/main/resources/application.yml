@@ -1,0 +1,15 @@
+server:
+  port: 8101
+  servlet:
+    context-path: /search
+spring:
+  application:
+    name: searchService
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tstc?currentSchema=db_tstc
+    username: postgres
+    password: 6789@jkl

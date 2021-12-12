@@ -1,0 +1,31 @@
+server:
+  port: 8000
+spring:
+  application:
+    name: memory-gateway
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tstc?currentSchema=db_tstc
+    username: postgres
+    password: 6789@jkl
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: tstc-passage
+          uri: lb://passageService
+          predicates:
+          - Path=/passage/**
+        - id: tstc-settings
+          uri: lb://settingService
+          predicates:
+            - Path=/settings/**
+        - id: tstc-user
+          uri: lb://userService
+          predicates:
+          - Path=/user/**
+        - id: tstc-search
+          uri: lb://searchService
+          predicates:
+            - Path=/search/**

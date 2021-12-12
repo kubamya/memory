@@ -1,0 +1,25 @@
+server:
+  port: 8200
+  servlet:
+    context-path: /passage
+spring:
+  application:
+    name: passageService
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tstc?currentSchema=db_tstc
+    username: postgres
+    password: 6789@jkl
+  servlet:
+    multipart:
+      max-file-size: 100MB
+mybatis-plus:
+  mapper-locations: classpath:mapper/*
+minio:
+  bucket: tstc
+  addr: http://127.0.0.1:9000
+  username: minioadmin
+  password: minioadmin

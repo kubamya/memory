@@ -1,0 +1,17 @@
+server:
+  port: 8100
+  servlet:
+    context-path: /settings
+spring:
+  application:
+    name: settingService
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/tstc?currentSchema=db_tstc
+    username: postgres
+    password: 6789@jkl
+mybatis-plus:
+  mapper-locations: classpath:mapper/*

@@ -1,0 +1,17 @@
+server:
+  port: 8103
+  servlet:
+    context-path: /user
+spring:
+  application:
+    name: userService
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/memory?currentSchema=db_memory
+    username: postgres
+    password: 6789@jkl
+mybatis-plus:
+  mapper-locations: classpath:mapper/*
