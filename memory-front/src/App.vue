@@ -11,7 +11,7 @@ export default {
 *{
   margin: 0;
   padding: 0;
-  color: #fff;
+  /* color: #fff; */
 }
 html,body,#app{
   width: 100%;

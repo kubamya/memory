@@ -20,10 +20,19 @@ public class TXtpzLabel {
     private String cRights;
     private String cCreator;
     private String cUpdater;
+    private String cBgc;
     @TableField(fill = FieldFill.INSERT)
     private Date dCreateTime;
     @TableField(fill = FieldFill.UPDATE)
     private Date dUpdateTime;
+
+    public String getcBgc() {
+        return cBgc;
+    }
+
+    public void setcBgc(String cBgc) {
+        this.cBgc = cBgc;
+    }
 
     public String getcId() {
         return cId;

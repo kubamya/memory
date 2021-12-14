@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.urttom.memory.xtpz.module.TXtpzLabel;
 
+import java.util.Map;
+
 public interface LabelService {
 
     void addLabel(TXtpzLabel label);
@@ -14,5 +16,5 @@ public interface LabelService {
 
     TXtpzLabel getLabel(String id);
 
-    IPage<TXtpzLabel> getLabels(Page<TXtpzLabel> page);
+    IPage<Map<String, Object>> getLabels(Page<Map<String, Object>> page);
 }

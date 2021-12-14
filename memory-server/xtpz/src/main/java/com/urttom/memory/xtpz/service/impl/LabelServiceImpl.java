@@ -1,5 +1,8 @@
 package com.urttom.memory.xtpz.service.impl;
 
+import cn.hutool.core.lang.UUID;
+import cn.hutool.core.lang.generator.UUIDGenerator;
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.urttom.memory.xtpz.service.LabelService;
@@ -7,6 +10,8 @@ import com.urttom.memory.xtpz.mapper.LabelMapper;
 import com.urttom.memory.xtpz.module.TXtpzLabel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Map;
 
 @Service
 public class LabelServiceImpl implements LabelService {
@@ -16,6 +21,7 @@ public class LabelServiceImpl implements LabelService {
 
     @Override
     public void addLabel(TXtpzLabel label) {
+        label.setcId(IdUtil.simpleUUID());
         labelMapper.insert(label);
     }
 
@@ -35,7 +41,7 @@ public class LabelServiceImpl implements LabelService {
     }
 
     @Override
-    public IPage<TXtpzLabel> getLabels(Page<TXtpzLabel> page) {
+    public IPage<Map<String, Object>> getLabels(Page<Map<String, Object>> page) {
         return labelMapper.getLabels(page);
     }
 }

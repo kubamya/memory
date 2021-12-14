@@ -14,7 +14,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item>个人资料</el-dropdown-item>
-            <el-dropdown-item>退出登录</el-dropdown-item>
+            <el-dropdown-item @click="logout()">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -27,6 +27,7 @@
 </template>
 <script>
 import { ArrowDown, BellFilled } from '@element-plus/icons'
+import { ElMessageBox } from 'element-plus'
 export default {
   components: {
     ArrowDown,
@@ -35,6 +36,20 @@ export default {
   data () {
     return {
       userName: 'admin'
+    }
+  },
+  methods: {
+    logout () {
+      ElMessageBox.confirm(
+        '确认退出当前账号？',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        }).then(() => {
+          this.$router.push({path: '/login'})
+        })
     }
   }
 }

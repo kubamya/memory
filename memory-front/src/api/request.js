@@ -23,7 +23,7 @@ axios.interceptors.response.use((response) => {
           name: "",
           token: null,
         });
-        window.location.href = "#/login";
+        window.location.href = "/login";
         break;
     }
   }

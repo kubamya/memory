@@ -10,7 +10,7 @@ spring:
       server-addr: localhost:8848
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/tstc?currentSchema=db_tstc
+    url: jdbc:postgresql://localhost:5432/memory?currentSchema=db_memory
     username: postgres
     password: 6789@jkl
 mybatis-plus:

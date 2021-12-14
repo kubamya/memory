@@ -1,0 +1,38 @@
+.el-table td {
+  background: #1f1d2b !important;
+}
+.el-table th {
+  background-color: #1f1d2b !important;
+}
+.el-pager li {
+  background: #1f1d2b !important;
+}
+.el-pagination button:disabled {
+  background-color: #1f1d2b !important;
+}
+.el-pagination .btn-next,
+.el-pagination .btn-prev {
+  background-color: #1f1d2b !important;
+}
+.el-pagination .btn-prev {
+  background-color: #1f1d2b !important;
+}
+.el-table__body-wrapper,
+.el-table__footer-wrapper,
+.el-table__header-wrapper {
+  background: #1f1d2b;
+}
+
+.el-dialog__header,
+.el-dialog__body,
+.el-dialog__footer {
+  background: #1f1d2b;
+}
+
+.el-dialog__header .el-dialog__title {
+  color: #ccc;
+}
+
+.el-textarea__inner {
+  background: #1f1d2b;
+}

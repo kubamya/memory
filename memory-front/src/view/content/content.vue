@@ -135,6 +135,7 @@ export default {
           margin-right: 10px;
           padding: 8px;
           border-radius: 10px;
+          color: #fff;
         }
       }
       .passage-info{
@@ -159,6 +160,7 @@ export default {
         line-height: 30px;
         top: 65px;
         text-shadow:3px 3px 3px #000000;
+        color: #fff;
       }
       .passage-author-avatar{
         width: 70px;
@@ -202,6 +204,7 @@ export default {
         font-size: 18px;
         height: 50px;
         line-height: 75px;
+        color: #fff;
       }
       .theme-info{
         padding-left: 80px;
