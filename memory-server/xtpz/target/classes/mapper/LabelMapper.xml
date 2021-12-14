@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- 由stage工具自动生成 -->
 <mapper namespace="com.urttom.memory.xtpz.mapper.LabelMapper">
+    <select id="getAllLabels" resultType="map">
+        select
+            c_id as id,
+            c_name as label,
+            c_bgc as bgc
+        from
+            t_xtpz_label t
+    </select>
     <select id="getLabels" resultType="map">
         select
             c_id as cId,
@@ -15,7 +23,7 @@
             from
                 t_xtpz_label txl
             where
-                txl.c_pid = t.c_id) as pName
+                txl.c_id = t.c_pid) as pName
         from
             t_xtpz_label t
         order by d_create_time desc

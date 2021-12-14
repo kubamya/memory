@@ -23,6 +23,17 @@ public class LabelController {
     @Autowired
     private LabelService labelService;
 
+    @JwtToken
+    @GetMapping("/label/all")
+    public Object getAllLabels(){
+        try {
+            return RestUtil.comRet(HttpStatus.OK.value(), labelService.getAllLabels(), "获取成功");
+        } catch (Exception e) {
+            log.error(e);
+            return RestUtil.comRet(HttpStatus.INTERNAL_SERVER_ERROR.value(), e, "获取标签异常");
+        }
+    }
+
     /**
      * 根据主键获取label
      * @param id
@@ -39,6 +50,12 @@ public class LabelController {
         }
     }
 
+    /**
+     * 根据主键删除标签
+     * @param id
+     * @return
+     */
+    @JwtToken
     @DeleteMapping("/label/{id}")
     public Object deleteLabel(@PathVariable String id){
         try {
@@ -50,6 +67,11 @@ public class LabelController {
         }
     }
 
+    /**
+     * 更新标签
+     * @param label
+     * @return
+     */
     @JwtToken
     @PutMapping("/label")
     public Object updateLabel(@RequestBody TXtpzLabel label){

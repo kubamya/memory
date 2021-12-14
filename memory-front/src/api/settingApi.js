@@ -1,5 +1,11 @@
 import { Post, Get, Put, Del } from "./request";
 
+// 获取所有标签
+export const getAllLabels = () =>
+  Get({
+    url: `/settings/label/api/v1/label/all`,
+  });
+
 // 删除标签
 export const deleteLabel = (params) =>
   Del({

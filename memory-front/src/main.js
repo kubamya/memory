@@ -5,5 +5,10 @@ import "./assets/restElement.css";
 import App from "./App.vue";
 import router from "./router/index.js";
 import store from "./store/index.js";
+import Emitter from "tiny-emitter";
 
-createApp(App).use(router).use(store).use(ElementPlus).mount("#app");
+const emitter = new Emitter();
+const app = createApp(App).use(store);
+
+app.use(router).use(ElementPlus).mount("#app");
+app.config.globalProperties.emitter = emitter;

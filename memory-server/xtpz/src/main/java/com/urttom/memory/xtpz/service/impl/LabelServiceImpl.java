@@ -11,6 +11,7 @@ import com.urttom.memory.xtpz.module.TXtpzLabel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,6 +19,11 @@ public class LabelServiceImpl implements LabelService {
 
     @Autowired
     private LabelMapper labelMapper;
+
+    @Override
+    public List<Map<String, Object>> getAllLabels() {
+        return labelMapper.getAllLabels();
+    }
 
     @Override
     public void addLabel(TXtpzLabel label) {

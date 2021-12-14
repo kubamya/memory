@@ -32,7 +32,7 @@
     >
       <el-form ref="labelForm" :model="form" :rules="rules" label-width="120px">
         <el-form-item label="父级标签">
-          <el-select v-model="form.cPid" placeholder="请选择">
+          <el-select v-model="form.cPid" clearable filterable placeholder="请选择">
             <el-option
               v-for="label in parentLables"
               :label="label.label"
@@ -61,16 +61,13 @@
   </div>
 </template>
 <script>
-import { addLabel, getLabels, getLabelById, updateLabel, deleteLabel } from '@/api/settingApi.js'
+import { addLabel, getLabels, getLabelById, updateLabel, deleteLabel, getAllLabels } from '@/api/settingApi.js'
 import { ElNotification, ElMessageBox } from 'element-plus'
 export default {
   data () {
     return {
       labelData: [],
-      parentLables: [
-        {label: '前端', value: '1'},
-        {label: '后端', value: '2'},
-      ],
+      parentLables: [],
       dialogVisible: false,
       form: {
         cId: '',
@@ -91,8 +88,37 @@ export default {
   },
   mounted () {
     this.getLabels()
+    this.initParentLabels()
   },
   methods: {
+    // 初始化父级标签数据
+    initParentLabels () {
+      getAllLabels().then(res => {
+        if (res.code == 200) {
+          this.parentLables = []
+          let retData = res.data
+          retData.forEach(item => {
+            this.parentLables.push({
+              label: item.label,
+              value: item.id
+            })
+          })
+        } else {
+          ElNotification({
+            title: '警告',
+            message: `${res.msg}`,
+            type: 'warning',
+          })
+        }
+      }).catch(err => {
+        console.log(err);
+        ElNotification({
+          title: '错误',
+          message: `${JSON.stringify(err)}`,
+          type: 'error',
+        })
+      })
+    },
     // 删除
     del (row) {
       ElMessageBox.confirm(
@@ -112,6 +138,7 @@ export default {
               type: 'success',
             })
             this.getLabels()
+            this.emitter.emit('restLabel')
           } else {
             ElNotification({
               title: '警告',

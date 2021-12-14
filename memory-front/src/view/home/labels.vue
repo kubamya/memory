@@ -17,6 +17,8 @@
   </div>
 </template>
 <script>
+import { getAllLabels } from '@/api/settingApi.js'
+import { ElNotification } from 'element-plus'
 export default {
   data () {
     return {
@@ -38,7 +40,36 @@ export default {
       ]
     }
   },
+  mounted () {
+    this.init()
+    this.$nextTick(() => {
+      this.emitter.on('restLabel', () => {
+        this.init()
+      })
+    })
+  },
   methods: {
+    // 初始化数据
+    init () {
+      getAllLabels().then(res => {
+        if (res.code == 200) {
+          this.labelData = res.data
+        } else {
+          ElNotification({
+            title: '警告',
+            message: `${res.msg}`,
+            type: 'warning',
+          })
+        }
+      }).catch(err => {
+        console.log(err);
+        ElNotification({
+          title: '错误',
+          message: `${JSON.stringify(err)}`,
+          type: 'error',
+        })
+      })
+    }
   }
 }
 </script>

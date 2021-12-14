@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.urttom.memory.xtpz.module.TXtpzLabel;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Map;
 
 @Repository
 public interface LabelMapper extends BaseMapper<TXtpzLabel> {
 
     IPage<Map<String, Object>> getLabels(Page<Map<String, Object>> page);
+
+    List<Map<String, Object>> getAllLabels();
 }
