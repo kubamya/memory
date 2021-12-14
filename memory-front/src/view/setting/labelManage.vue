@@ -3,7 +3,15 @@
     <div class="label-btn-container">
       <el-button type="primary" size="mini" round @click="dialogVisible = true">新增标签</el-button>
     </div>
-    <el-table :data="labelData" height="500" style="width: 100%">
+    <el-table 
+      :data="labelData"
+      v-loading="loading"
+      element-loading-text="Loading..."
+      :element-loading-spinner="svg"
+      element-loading-svg-view-box="-10, -10, 50, 50"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      height="500"
+      style="width: 100%">
       <el-table-column prop="name" label="名称"></el-table-column>
       <el-table-column prop="pName" label="父级名称"></el-table-column>
       <el-table-column prop="bgc" label="标签颜色">
@@ -69,6 +77,7 @@ export default {
       labelData: [],
       parentLables: [],
       dialogVisible: false,
+      loading: false,
       form: {
         cId: '',
         cPid: '',
@@ -83,7 +92,17 @@ export default {
         current: 1,
         pageSize: 10,
         total: 100
-      }
+      },
+      svg: `
+        <path class="path" d="
+          M 30 15
+          L 28 17
+          M 25.61 25.61
+          A 15 15, 0, 0, 1, 15 30
+          A 15 15, 0, 1, 1, 27.99 7.5
+          L 15 15
+        " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>
+      `
     }
   },
   mounted () {
@@ -132,6 +151,7 @@ export default {
       ).then(() => {
         deleteLabel({id: row.id}).then(res => {
           if (res.code == 200) {
+            this.initParentLabels()
             ElNotification({
               title: '提示',
               message: '删除成功',
@@ -160,6 +180,8 @@ export default {
     edit (row) {
       getLabelById({id: row.id}).then(res => {
         if (res.code == 200) {
+          this.initParentLabels()
+          this.emitter.emit('restLabel')
           this.form = {
             cId: res.data.cId,
             cPid: res.data.cPid,
@@ -191,7 +213,9 @@ export default {
     },
     // 获取标签列表数据
     getLabels () {
+      this.loading = true
       getLabels({current: this.pageInfo.current, pageSize: this.pageInfo.pageSize}).then(res => {
+        this.loading = false
         if (res.code == 200) {
           let retData = res.data.records
           this.pageInfo.total = res.data.total
@@ -214,6 +238,7 @@ export default {
           })
         }
       }).catch(err => {
+        this.loading = false
         console.log(err);
         ElNotification({
           title: '错误',
@@ -229,6 +254,8 @@ export default {
           if (this.form.cId == '' || this.form.cId == undefined) {
             addLabel(this.form).then(res => {
               if (res.code == 200) {
+                this.initParentLabels()
+                this.emitter.emit('restLabel')
                 ElNotification({
                   title: '提示',
                   message: '保存成功',
@@ -260,6 +287,8 @@ export default {
           } else {
             updateLabel(this.form).then(res => {
               if (res.code == 200) {
+                this.initParentLabels()
+                this.emitter.emit('restLabel')
                 ElNotification({
                   title: '提示',
                   message: '保存成功',

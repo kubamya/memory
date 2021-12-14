@@ -27,17 +27,7 @@ export default {
         more: require('@/assets/icons/more.png'),
         less: require('@/assets/icons/less.png'),
       },
-      labelData: [
-        {id: '1', bgc: '#409EFF', label: 'Artery5'},
-        {id: '2', bgc: '#67C23A', label: 'Artery6'},
-        {id: '3', bgc: '#E6A23C', label: 'ArteryBase'},
-        {id: '4', bgc: '#F56C6C', label: 'Nginx'},
-        {id: '5', bgc: '#409EFF', label: 'Redis'},
-        {id: '6', bgc: '#67C23A', label: 'Vue'},
-        {id: '7', bgc: '#E6A23C', label: 'Docker'},
-        {id: '8', bgc: '#F56C6C', label: 'SpringBoot'},
-        {id: '9', bgc: '#409EFF', label: 'SpringCloud'},
-      ]
+      labelData: []
     }
   },
   mounted () {
