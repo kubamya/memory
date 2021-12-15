@@ -36,3 +36,7 @@
 .el-textarea__inner {
   background: #1f1d2b;
 }
+
+.el-tabs__item {
+  color: #fff;
+}

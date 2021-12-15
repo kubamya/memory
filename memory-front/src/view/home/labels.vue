@@ -1,16 +1,22 @@
 <template>
   <div class="label-container">
     <div class="label-title">标签</div>
-    <div class="label-item-container">
+    <div
+      v-loading="loading"
+      element-loading-text="Loading..."
+      :element-loading-spinner="svg"
+      element-loading-svg-view-box="-10, -10, 50, 50"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+      class="label-item-container">
       <div
         class="label-item"
-        v-for="item in labelData"
+        v-for="item in showLabelData"
         :style="{backgroundColor: item.bgc}"
         :key="item.id" >
         {{item.label}}
       </div>
     </div>
-    <div class="label-more" @click="more = !more">
+    <div class="label-more" v-if="labelData.length > 10" @click="toggle()">
       <img :src="more ? moreIcon.less : moreIcon.more">
     </div>
     <hr width="210">
@@ -27,7 +33,19 @@ export default {
         more: require('@/assets/icons/more.png'),
         less: require('@/assets/icons/less.png'),
       },
-      labelData: []
+      labelData: [],
+      showLabelData: [],
+      loading: false,
+      svg: `
+        <path class="path" d="
+          M 30 15
+          L 28 17
+          M 25.61 25.61
+          A 15 15, 0, 0, 1, 15 30
+          A 15 15, 0, 1, 1, 27.99 7.5
+          L 15 15
+        " style="stroke-width: 4px; fill: rgba(0, 0, 0, 0)"/>
+      `
     }
   },
   mounted () {
@@ -39,11 +57,37 @@ export default {
     })
   },
   methods: {
+    toggle () {
+      if (!this.more) {
+        // 展示全部标签
+        this.showLabelData = this.labelData
+        this.more = !this.more
+      } else {
+        // 展示前10个标签
+        this.showLabelData = []
+        
+        for (let i = 0; i < 10; i++) {
+          this.showLabelData.push({...this.labelData[i]}) ;
+        }
+
+        this.more = !this.more
+      }
+    },
     // 初始化数据
     init () {
+      this.loading = true
       getAllLabels().then(res => {
+        this.loading = false
         if (res.code == 200) {
           this.labelData = res.data
+
+          if (this.labelData.length > 10) {
+            this.showLabelData = []
+            
+            for (let i = 0; i < 10; i++) {
+              this.showLabelData.push({...this.labelData[i]}) ;
+            }
+          }
         } else {
           ElNotification({
             title: '警告',
@@ -52,6 +96,7 @@ export default {
           })
         }
       }).catch(err => {
+        this.loading = false
         console.log(err);
         ElNotification({
           title: '错误',
