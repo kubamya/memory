@@ -1,5 +1,6 @@
 package com.urttom.memory.user.service.impl;
 
+import cn.hutool.core.util.IdUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.urttom.memory.user.module.TSysUser;
 import com.urttom.memory.user.service.UserService;
@@ -55,8 +56,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(TSysUser sysUser) {
-        sysUser.setcPassword(MD5Util.encode(sysUser.getcPassword()));
-        userMapper.insert(sysUser);
+    public Map<String, Object> addUser(TSysUser sysUser) {
+
+        // 检查用户是否已经存在
+        TSysUser tSysUser = userMapper.checkIsRegisted(sysUser.getcLoginId());
+
+        if (tSysUser != null) {
+            return new HashMap<String, Object>(){{
+               put("success", false);
+               put("msg", "username already exist");
+            }};
+        } else {
+            sysUser.setcId(IdUtil.simpleUUID());
+            sysUser.setcName("MUser" + IdUtil.simpleUUID());
+            sysUser.setcPassword(MD5Util.encode(sysUser.getcPassword()));
+            userMapper.insert(sysUser);
+
+            return new HashMap<String, Object>(){{
+                put("success", true);
+                put("msg", "sign up success");
+            }};
+        }
     }
 }

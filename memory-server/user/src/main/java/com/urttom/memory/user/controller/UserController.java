@@ -21,11 +21,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 用户注册
+     * @param user
+     * @return
+     */
     @PostMapping("/user")
     public Object addUser(@RequestBody TSysUser user){
         try {
-            userService.addUser(user);
-            return RestUtil.comRet(HttpStatus.OK.value(), null, "添加成功");
+            return RestUtil.comRet(HttpStatus.OK.value(), userService.addUser(user), "添加成功");
         } catch (Exception e) {
             log.error("添加用户异常", e);
             return RestUtil.comRet(HttpStatus.INTERNAL_SERVER_ERROR.value(), e, e.getMessage());

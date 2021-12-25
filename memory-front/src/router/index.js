@@ -6,6 +6,10 @@ const routes = [
     component: () => import("@/view/home/home.vue"),
   },
   {
+    path: "/mySpace",
+    component: () => import("@/view/userSpace/mySpace.vue"),
+  },
+  {
     path: "/login",
     component: () => import("@/view/login.vue"),
   },

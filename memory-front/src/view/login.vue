@@ -11,21 +11,22 @@
         <el-input @focus="focusForm('signUp')" type="password" placeholder="password" v-model="register.password"></el-input>
         <el-input @focus="focusForm('signUp')" type="password" placeholder="password" v-model="register.confirmPass"></el-input>
         <el-input @focus="focusForm('signUp')" placeholder="Email" v-model="register.email"></el-input>
-        <el-button type="primary" :disabled="currentForm != 'signUp' " @click="doLogin()">sign up</el-button>
+        <el-button type="primary" :disabled="currentForm != 'signUp' " @click="doSignUp()">sign up</el-button>
       </div>
       <div class="sign-form sign-in-form" :style="signInStyle">
         <div class="sign-title" :style="signInTitleStyle">Sign In</div>
         <el-input @focus="focusForm('signIn')" placeholder="username" v-model="user.username"></el-input>
         <el-input @focus="focusForm('signIn')" type="password" placeholder="password" v-model="user.password"></el-input>
-        <el-button type="primary" :disabled="currentForm != 'signIn' " @click="doLogin()">sign in</el-button>
+        <el-button type="primary" :disabled="currentForm != 'signIn' " @click="doSignIn()">sign in</el-button>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { login } from '@/api/userApi.js'
+import { signIn, signUp } from '@/api/userApi.js'
 import {mapMutations, mapState} from "vuex"
 import { ElNotification } from 'element-plus'
+import _ from 'lodash'
 export default {
   data () {
     return {
@@ -56,9 +57,82 @@ export default {
   methods: {
     ...mapMutations(['setUser']),
 
+    // 注册方法
+    doSignUp () {
+      // 用户名，密码，邮箱不能为空
+      if (_.isEmpty(this.register.username ) || _.isEmpty(this.register.password ) || _.isEmpty(this.register.email )) {
+        ElNotification({
+            title: 'Warning',
+            message: `username/password/Email can't be empty! `,
+            type: 'warning',
+          })
+        return
+      }
+      // 两次密码必须一致
+      if ( !_.isEqual(this.register.password, this.register.confirmPass) ) {
+        ElNotification({
+            title: 'Warning',
+            message: `Passwords do not match !`,
+            type: 'warning',
+          })
+        return
+      }
+      // 邮箱需要符合正确格式
+      let reg = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if (!reg.test(this.register.email)) {
+        ElNotification({
+            title: 'Warning',
+            message: `Email is illegal `,
+            type: 'warning',
+          })
+        return
+      }
+      signUp({
+        cLoginId: this.register.username,
+        cPassword: this.register.password,
+        cEmail: this.register.email
+      }).then(res => {
+        if (res.code == 200) {
+          if (res.data.success) {
+            ElNotification({
+              title: 'Success',
+              message: `${res.data.msg}`,
+              type: 'success',
+            })
+          } else {
+            ElNotification({
+              title: '警告',
+              message: `${res.data.msg}`,
+              type: 'warning',
+            })
+          }
+        } else {
+          ElNotification({
+            title: '警告',
+            message: `${res.msg}`,
+            type: 'warning',
+          })
+        }
+      }).catch(err => {
+        console.log(err);
+        ElNotification({
+          title: '错误',
+          message: `${JSON.stringify(err)}`,
+          type: 'error',
+        })
+      })
+    },
     // 登录方法
-    doLogin () {
-      login(this.user).then(res => {
+    doSignIn () {
+      if ( _.isEmpty(this.user.username )) {
+        ElNotification({
+            title: 'Warning',
+            message: `username can't be empty! `,
+            type: 'warning',
+          })
+        return
+      }
+      signIn(this.user).then(res => {
         if (res.code == 200) {
           this.setUser({
             id: res.data.userId,
@@ -66,6 +140,12 @@ export default {
             name: res.data.userName,
             token: res.data.token
           })
+          window.localStorage.setItem('userInfo', JSON.stringify({
+            id: res.data.userId,
+            loginId: res.data.loginId,
+            name: res.data.userName,
+            token: res.data.token
+          }))
           this.$router.push('/')
         } else {
           ElNotification({

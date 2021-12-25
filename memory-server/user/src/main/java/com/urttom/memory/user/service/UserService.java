@@ -10,5 +10,5 @@ public interface UserService {
 
     TSysUser checkUserPwd(TSysUser user);
 
-    void addUser(TSysUser sysUser);
+    Map<String, Object> addUser(TSysUser sysUser);
 }

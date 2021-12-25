@@ -13,7 +13,7 @@
         </span>
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item>个人资料</el-dropdown-item>
+            <el-dropdown-item @click="goMySpace()">个人资料</el-dropdown-item>
             <el-dropdown-item @click="logout()">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -45,6 +45,7 @@
 <script>
 import { ArrowDown, BellFilled, Promotion } from '@element-plus/icons'
 import { ElMessageBox } from 'element-plus'
+import _ from 'lodash'
 export default {
   components: {
     ArrowDown,
@@ -56,10 +57,36 @@ export default {
       userName: 'admin'
     }
   },
+  mounted () {
+    this.getUserInfo()
+  },
   methods: {
+
+    // 跳转个人资料页
+    goMySpace () {
+      window.open("/mySpace")
+    },
+
+    // 从vuex获取用户信息
+    getUserInfo () {
+      const userInfoJsonStr = window.localStorage.getItem("userInfo");
+      const userName = _.isEmpty(userInfoJsonStr)
+        ? null
+        : JSON.parse(userInfoJsonStr).name;
+      if(_.isEmpty(userName)){
+        this.userName = 'please sign in'
+      } else {
+        this.userName = userName
+      }
+    },
+
+    // 跳转文章编辑页
     goEdit () {
+      window.localStorage.removeItem("userInfo");
       window.open("/edit")
     },
+
+    // 退出登录
     logout () {
       ElMessageBox.confirm(
         '确认退出当前账号？',

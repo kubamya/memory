@@ -1,8 +1,13 @@
 import axios from "axios";
 import store from "../store/index.js";
+import _ from "lodash";
 
 axios.interceptors.request.use(function (config) {
-  const token = store.state.userInfo.token;
+  // const token = store.state.userInfo.token;
+  const userInfoJsonStr = window.localStorage.getItem("userInfo");
+  const token = _.isEmpty(userInfoJsonStr)
+    ? null
+    : JSON.parse(userInfoJsonStr).token;
   if (token) {
     config.headers.token = token;
   }
@@ -23,6 +28,7 @@ axios.interceptors.response.use((response) => {
           name: "",
           token: null,
         });
+        window.localStorage.removeItem("userInfo");
         window.location.href = "/login";
         break;
     }

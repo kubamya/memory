@@ -115,6 +115,9 @@ export default {
 <style lang="less" scoped>
 .content-container{
   .content-passage-container{
+    .passage:hover {
+      animation: bounce 1s;
+    }
     .passage{
       width: calc(100% - 20px);
       background-color: rgba(255, 255, 255, 0.1);
@@ -189,6 +192,9 @@ export default {
   }
   .content-themes-container{
     width: 100%;
+    .content-theme:hover {
+      animation: flip 0.5s;
+    }
     .content-theme{
       background-color: #252936;
       width: 220px;

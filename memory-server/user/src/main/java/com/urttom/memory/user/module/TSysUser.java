@@ -17,6 +17,15 @@ public class TSysUser implements Serializable {
     private String cLoginId;
     private String cPassword;
     private String cAvatar;
+    private String cEmail;
+
+    public String getcEmail() {
+        return cEmail;
+    }
+
+    public void setcEmail(String cEmail) {
+        this.cEmail = cEmail;
+    }
 
     public String getcId() {
         return cId;
