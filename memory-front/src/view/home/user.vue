@@ -20,18 +20,36 @@
       </el-dropdown>
     </div>
     <div class="user-notice">
-      <el-icon><bell-filled /></el-icon>
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="发布文章"
+        placement="bottom"
+      >
+        <el-icon @click="goEdit()"><promotion /></el-icon>
+      </el-tooltip>
+    </div>
+    <div class="user-notice">
+      <el-tooltip
+        class="item"
+        effect="dark"
+        content="消息提醒"
+        placement="bottom"
+      >
+        <el-icon><bell-filled /></el-icon>
+      </el-tooltip>
     </div>
 
   </div>
 </template>
 <script>
-import { ArrowDown, BellFilled } from '@element-plus/icons'
+import { ArrowDown, BellFilled, Promotion } from '@element-plus/icons'
 import { ElMessageBox } from 'element-plus'
 export default {
   components: {
     ArrowDown,
-    BellFilled
+    BellFilled,
+    Promotion
   },
   data () {
     return {
@@ -39,6 +57,9 @@ export default {
     }
   },
   methods: {
+    goEdit () {
+      window.open("/edit")
+    },
     logout () {
       ElMessageBox.confirm(
         '确认退出当前账号？',
@@ -84,7 +105,7 @@ export default {
     height: 100px;
     text-align: center;
     line-height: 90px;
-    margin: 0px 20px;
+    margin: 0px 10px;
     .el-icon{
       font-size: 25px;
       color: rgba(255, 255, 255, 0.5);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 由stage工具自动生成 -->
+<mapper namespace="com.urttom.memory.xtpz.mapper.LinkMapper">
+    <select id="getLinks" resultType="map">
+        select
+            c_id as cId,
+            c_name as cName,
+            c_target as cTarget,
+            to_char(d_create_time, 'yyyy-MM-dd') as dCreateTime,
+	        (select tsc.c_name from t_sys_code tsc where txl.c_valid = tsc.c_id and c_pid = '100101') as cValid
+        from
+            t_xtpz_link txl
+        order by
+            d_create_time desc
+    </select>
+
+    <select id="getAllLinks" resultType="map">
+        select
+            c_id as cId,
+            c_name as cName,
+            c_target as cTarget,
+            d_create_time as dCreateTime
+        from
+            t_xtpz_link txl
+        where
+            c_valid = '1'
+        order by
+            d_create_time desc
+    </select>
+</mapper>

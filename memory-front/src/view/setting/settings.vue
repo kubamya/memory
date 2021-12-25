@@ -12,6 +12,7 @@
       <el-tab-pane label="主题维护" name="themeManage">User</el-tab-pane>
       <el-tab-pane label="发布统计" name="publishManage">User</el-tab-pane>
       <el-tab-pane label="审批记录" name="approvalRecord">User</el-tab-pane>
+      <el-tab-pane label="用户管理" name="userManage">User</el-tab-pane>
     </el-tabs>
   </div>
 </template>

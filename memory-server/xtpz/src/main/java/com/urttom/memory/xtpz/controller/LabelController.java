@@ -23,7 +23,10 @@ public class LabelController {
     @Autowired
     private LabelService labelService;
 
-    @JwtToken
+    /**
+     * 获取所有标签
+     * @return
+     */
     @GetMapping("/label/all")
     public Object getAllLabels(){
         try {

@@ -31,9 +31,6 @@ public class JwtInterceptor implements HandlerInterceptor {
                 if (token == null) {
                     throw new NoTokenException("无token，请登录");
                 }
-                // 获取 token 中的 userId
-                String userId = JwtUtil.getUserId(token);
-                System.out.println("用户id:" + userId);
                 // 验证 token
                 JwtUtil.checkSign(token);
             }
