@@ -17,6 +17,10 @@ const routes = [
     path: "/edit",
     component: () => import("@/view/content/edit.vue"),
   },
+  {
+    path: "/aboutMe",
+    component: () => import("@/view/aboutMe/aboutMe.vue"),
+  },
 ];
 
 const router = createRouter({
