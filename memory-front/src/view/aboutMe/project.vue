@@ -1,32 +1,25 @@
 <template>
   <el-timeline>
-    <el-timeline-item timestamp="2018.04.22 - 至今" placement="top">
-      <h4>华宇内部信息化建设</h4>
-      <p>Artery5（基于SSM封装+ jQuery封装）· ArteryBase（基于postgresql封装）· Vue · Nginx · Docker</p>
-    </el-timeline-item>
-    <el-timeline-item timestamp="2018.04.22 - 至今" placement="top">
-      <h4>华宇清单配置工具（Windows桌面程序）</h4>
-      <p>Electron · Vue · SpringBoot</p>
-    </el-timeline-item>
-    <el-timeline-item timestamp="2018.04.22 - 至今" placement="top">
-      <h4>华宇穿梭巴</h4>
-      <p>微信小程序</p>
-    </el-timeline-item>
-    <el-timeline-item timestamp="2018.04.22 - 至今" placement="top">
-      <h4>房山区人民检察院检查服务e站</h4>
-      <p>微信小程序</p>
-    </el-timeline-item>
-    <el-timeline-item timestamp="2018.04.22 - 至今" placement="top">
-      <h4>法官E平台</h4>
-      <p>Artery5（基于SSM + jQuery封装）· ArteryBase（基于postgresql封装） · Vue</p>
-    </el-timeline-item>
-    <el-timeline-item timestamp="2018.04.22 - 至今" placement="top">
-      <h4>法院电子档案管理系统</h4>
-      <p>SpringBoot · ArteryBase（基于postgresql封装） · Vue · Nginx · Redis </p>
-    </el-timeline-item>
-    <el-timeline-item timestamp="2018.04.22 - 至今" placement="top">
-      <h4>辽宁法院信访立案与终结系统</h4>
-      <p>Artery5（基于SSM封装+ jQuery封装）· ArteryBase（基于postgresql封装）</p>
+    <el-timeline-item
+      v-for="project in projectData"
+      :timestamp="project.date"
+      placement="top"
+      :key="project.id">
+      <el-card>
+        <h4>{{project.name}}</h4>
+        <h5 style="color: #666">{{project.role}}</h5>
+        <p style="color: #555">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{project.decription}}</p>
+      </el-card>
     </el-timeline-item>
   </el-timeline>
 </template>
+<script>
+import projectData from './projectData.js'
+export default {
+  data () {
+    return {
+      projectData: projectData
+    }
+  }
+}
+</script>

@@ -22,7 +22,7 @@ export default {
 .personal-container{
   .name-container{
     font-size: 24px;
-    color: #333;
+    color: #fff;
   }
 }
 /deep/ .el-form{
