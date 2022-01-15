@@ -9,7 +9,9 @@
       <el-tab-pane label="链接管理" name="linkManage">
         <Link></Link>
       </el-tab-pane>
-      <el-tab-pane label="主题维护" name="themeManage">User</el-tab-pane>
+      <el-tab-pane label="主题管理" name="themeManage">
+        <Theme></Theme>
+      </el-tab-pane>
       <el-tab-pane label="发布统计" name="publishManage">User</el-tab-pane>
       <el-tab-pane label="审批记录" name="approvalRecord">User</el-tab-pane>
       <el-tab-pane label="用户管理" name="userManage">User</el-tab-pane>
@@ -19,14 +21,16 @@
 <script>
 import Link from './linkManage.vue'
 import Label from './labelManage.vue'
+import Theme from './themeManage.vue'
 export default {
   components: {
     'Link': Link,
-    'Label': Label
+    'Label': Label,
+    'Theme': Theme
   },
   data () {
     return {
-      activeName: 'labelManage'
+      activeName: 'themeManage'
     }
   }
 }

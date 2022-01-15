@@ -12,16 +12,22 @@ public class TXtpzTheme {
     private String cName;
     private String cIcon;
     private Integer nOrder;
-    private String isPublic;
-    private String hasWatermark;
-    private String allowCopy;
     private String cReviewer;
     private String cCreator;
     private String cUpdater;
+    private String cValid;
     @TableField(fill = FieldFill.INSERT)
     private Date dCreateTime;
     @TableField(fill = FieldFill.UPDATE)
     private Date dUpdateTime;
+
+    public String getcValid() {
+        return cValid;
+    }
+
+    public void setcValid(String cValid) {
+        this.cValid = cValid;
+    }
 
     public Date getdUpdateTime() {
         return dUpdateTime;
@@ -65,30 +71,6 @@ public class TXtpzTheme {
 
     public void setnOrder(Integer nOrder) {
         this.nOrder = nOrder;
-    }
-
-    public String getIsPublic() {
-        return isPublic;
-    }
-
-    public void setIsPublic(String isPublic) {
-        this.isPublic = isPublic;
-    }
-
-    public String getHasWatermark() {
-        return hasWatermark;
-    }
-
-    public void setHasWatermark(String hasWatermark) {
-        this.hasWatermark = hasWatermark;
-    }
-
-    public String getAllowCopy() {
-        return allowCopy;
-    }
-
-    public void setAllowCopy(String allowCopy) {
-        this.allowCopy = allowCopy;
     }
 
     public String getcReviewer() {

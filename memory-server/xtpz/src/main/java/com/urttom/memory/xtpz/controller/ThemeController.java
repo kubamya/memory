@@ -4,12 +4,15 @@ import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.urttom.memory.annotation.JwtToken;
+import com.urttom.memory.utils.JwtUtil;
 import com.urttom.memory.xtpz.module.TXtpzTheme;
 import com.urttom.memory.xtpz.service.ThemeService;
 import com.urttom.memory.utils.RestUtil;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/theme/api/v1")
@@ -42,6 +45,7 @@ public class ThemeController {
      * @param id
      * @return
      */
+    @JwtToken
     @GetMapping("/theme/{id}")
     public Object getThemeById(@PathVariable String id){
         try {
@@ -53,46 +57,17 @@ public class ThemeController {
     }
 
     /**
-     * 删除主题
-     * @param id
-     * @return
-     */
-    @DeleteMapping("/theme/{id}")
-    public Object updateTheme(@PathVariable String id) {
-        try {
-            themeService.deleteTheme(id);
-            return RestUtil.comRet(HttpStatus.SC_OK, null, "删除成功");
-        } catch (Exception e) {
-            log.error(e);
-            return RestUtil.comRet(HttpStatus.SC_INTERNAL_SERVER_ERROR, e, "删除异常");
-        }
-    }
-
-    /**
-     * 修改主题
+     * 保存主题
      * @param tXtpzTheme
      * @return
      */
-    @PutMapping("/theme")
-    public Object updateTheme(@RequestBody TXtpzTheme tXtpzTheme) {
-        try {
-            themeService.updateTheme(tXtpzTheme);
-            return RestUtil.comRet(HttpStatus.SC_OK, null, "修改成功");
-        } catch (Exception e) {
-            log.error(e);
-            return RestUtil.comRet(HttpStatus.SC_INTERNAL_SERVER_ERROR, e, "修改异常");
-        }
-    }
-
-    /**
-     * 添加主题
-     * @param tXtpzTheme
-     * @return
-     */
+    @JwtToken
     @PostMapping("/theme")
-    public Object addTheme(@RequestBody TXtpzTheme tXtpzTheme){
+    public Object saveTheme(@RequestBody TXtpzTheme tXtpzTheme, HttpServletRequest request){
         try {
-            themeService.addTheme(tXtpzTheme);
+            String token = request.getHeader("token");
+            String userId = JwtUtil.getUserId(token);
+            themeService.saveTheme(tXtpzTheme, userId);
             return RestUtil.comRet(HttpStatus.SC_OK, null, "保存成功");
         } catch (Exception e) {
             log.error(e);

@@ -1,5 +1,18 @@
 import { Post, Get, Put, Del } from "./request";
 
+// 获取主题列表
+export const getThemeData = (params) =>
+  Get({
+    url: `/settings/theme/api/v1/themes/current/${params.current}/total/${params.pageSize}`,
+  });
+
+// 保存主题
+export const saveTheme = (data) =>
+  Post({
+    url: `/settings/theme/api/v1/theme`,
+    data,
+  });
+
 // 获取所有链接
 export const getAllLinks = () =>
   Get({

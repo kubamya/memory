@@ -15,4 +15,6 @@ public interface ThemeService {
     void updateTheme(TXtpzTheme tXtpzTheme);
 
     void addTheme(TXtpzTheme tXtpzTheme);
+
+    void saveTheme(TXtpzTheme tXtpzTheme, String userId);
 }
