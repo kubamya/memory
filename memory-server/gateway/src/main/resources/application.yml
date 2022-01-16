@@ -16,7 +16,7 @@ spring:
         - id: tstc-passage
           uri: lb://passageService
           predicates:
-          - Path=/passage/**
+          - Path=/passages/**
         - id: tstc-settings
           uri: lb://settingService
           predicates:

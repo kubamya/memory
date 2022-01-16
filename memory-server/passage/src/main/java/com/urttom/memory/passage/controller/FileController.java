@@ -1,9 +1,9 @@
-package com.urttom.tstc.passage.controller;
+package com.urttom.memory.passage.controller;
 
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
 import com.urttom.memory.utils.RestUtil;
-import com.urttom.tstc.passage.service.FileService;
+import com.urttom.memory.passage.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

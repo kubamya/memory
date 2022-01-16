@@ -1,5 +1,11 @@
 import { Post, Get, Put, Del } from "./request";
 
+// 获取所有有效的主题
+export const getAllThemes = () =>
+  Get({
+    url: `/settings/theme/api/v1/themes/all`,
+  });
+
 // 获取主题列表
 export const getThemeData = (params) =>
   Get({

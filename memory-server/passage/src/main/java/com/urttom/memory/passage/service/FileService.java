@@ -1,4 +1,4 @@
-package com.urttom.tstc.passage.service;
+package com.urttom.memory.passage.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

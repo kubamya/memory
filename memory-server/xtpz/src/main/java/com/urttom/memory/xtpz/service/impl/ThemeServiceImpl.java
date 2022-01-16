@@ -1,8 +1,10 @@
 package com.urttom.memory.xtpz.service.impl;
 
 import cn.hutool.core.util.IdUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.urttom.memory.xtpz.consts.Consts;
 import com.urttom.memory.xtpz.service.ThemeService;
 import com.urttom.memory.xtpz.mapper.ThemeMapper;
 import com.urttom.memory.xtpz.module.TXtpzTheme;
@@ -10,11 +12,20 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ThemeServiceImpl implements ThemeService {
 
     @Autowired
     private ThemeMapper themeMapper;
+
+    @Override
+    public List<TXtpzTheme> getAllThemes() {
+        TXtpzTheme tXtpzTheme = new TXtpzTheme();
+        tXtpzTheme.setcValid(Consts.YES);
+        return themeMapper.selectList(new QueryWrapper<>(tXtpzTheme));
+    }
 
     @Override
     public IPage<TXtpzTheme> getThemeList(Page<TXtpzTheme> page) {

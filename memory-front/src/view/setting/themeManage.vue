@@ -65,9 +65,9 @@ export default {
       loading: false,
       dialogVisible: false,
       themeData: [],
-      themeRules: [
-        {cName: [{required: true,message: '名称不能为空',trigger: 'blur'}]}
-      ],
+      themeRules: {
+        cName: [{required: true,message: '名称不能为空',trigger: 'blur'}]
+      },
       themeForm: {
         cId: '',
         cName: '',

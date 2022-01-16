@@ -82,8 +82,9 @@ export default {
 
     // 跳转文章编辑页
     goEdit () {
-      window.localStorage.removeItem("userInfo");
-      window.open("/edit")
+      this.$router.push({
+        path: '/edit'
+      })
     },
 
     // 退出登录

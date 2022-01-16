@@ -11,6 +11,13 @@ module.exports = {
           "^/": "/",
         },
       },
+      "/passages": {
+        target: server.server_url,
+        changeOrigin: true,
+        pathRewrite: {
+          "^/": "/",
+        },
+      },
       "/user": {
         target: server.server_url,
         changeOrigin: true,

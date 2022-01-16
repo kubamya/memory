@@ -1,10 +1,10 @@
-package com.urttom.tstc.passage.service.impl;
+package com.urttom.memory.passage.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.log.Log;
 import cn.hutool.log.LogFactory;
-import com.urttom.tstc.passage.config.MinioConfig;
-import com.urttom.tstc.passage.service.FileService;
+import com.urttom.memory.passage.config.MinioConfig;
+import com.urttom.memory.passage.service.FileService;
 import io.minio.MinioClient;
 import io.minio.PutObjectOptions;
 import org.springframework.beans.factory.annotation.Autowired;

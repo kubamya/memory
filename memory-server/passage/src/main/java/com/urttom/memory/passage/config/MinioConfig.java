@@ -1,4 +1,4 @@
-package com.urttom.tstc.passage.config;
+package com.urttom.memory.passage.config;
 
 import io.minio.MinioClient;
 import org.springframework.beans.factory.annotation.Value;

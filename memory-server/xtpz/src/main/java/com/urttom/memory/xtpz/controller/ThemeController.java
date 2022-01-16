@@ -24,6 +24,21 @@ public class ThemeController {
     private ThemeService themeService;
 
     /**
+     * 获取所有主题
+     * @return
+     */
+    @JwtToken
+    @GetMapping("/themes/all")
+    public Object getAllThemes() {
+        try {
+            return RestUtil.comRet(HttpStatus.SC_OK, themeService.getAllThemes(), "查询成功");
+        } catch (Exception e){
+            log.error(e);
+            return RestUtil.comRet(HttpStatus.SC_INTERNAL_SERVER_ERROR, e, "查询异常");
+        }
+    }
+
+    /**
      * 获取主题列表
      * @param current
      * @param total

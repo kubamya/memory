@@ -1,9 +1,14 @@
-package com.urttom.tstc.passage.module;
+package com.urttom.memory.passage.module;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.util.Date;
 
 public class TPassage {
 
+    @TableId
     private String cId;
     private String cTitle;
     private String cContent;
@@ -16,11 +21,31 @@ public class TPassage {
     private Integer nLike;
     private String cStatus;
     private String cType;
+    private String cValid;
     private Integer nCollection;
     private String cCreator;
     private String cUpdater;
+    @TableField(fill = FieldFill.INSERT)
     private Date dCreateTime;
+    @TableField(fill = FieldFill.UPDATE)
     private Date dUpdateTime;
+    private String cText;
+
+    public String getcText() {
+        return cText;
+    }
+
+    public void setcText(String cText) {
+        this.cText = cText;
+    }
+
+    public String getcValid() {
+        return cValid;
+    }
+
+    public void setcValid(String cValid) {
+        this.cValid = cValid;
+    }
 
     public String getcId() {
         return cId;
