@@ -9,10 +9,7 @@ import com.urttom.memory.utils.JwtUtil;
 import com.urttom.memory.utils.RestUtil;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +21,30 @@ public class PassageController {
 
     @Autowired
     private PassageService passageService;
+
+    @GetMapping("/passageList/pageNum/{pageNum}/pageSize/{pageSize}")
+    public Object getPassageList(@PathVariable int pageNum, @PathVariable int pageSize){
+        try {
+            return RestUtil.comRet(HttpStatus.SC_OK, passageService.getPassageList(pageNum, pageSize), "查询成功");
+        } catch (Exception e){
+            log.error(e);
+            return RestUtil.comRet(HttpStatus.SC_INTERNAL_SERVER_ERROR, e, "获取文章列表异常");
+        }
+    }
+
+    /**
+     * 获取首页主题列表
+     * @return
+     */
+    @GetMapping("/themeList")
+    public Object getThemeList(){
+        try {
+            return RestUtil.comRet(HttpStatus.SC_OK, passageService.getThemeList(), "查询成功");
+        } catch (Exception e) {
+            log.error(e);
+            return RestUtil.comRet(HttpStatus.SC_INTERNAL_SERVER_ERROR, e, "获取主题列表异常");
+        }
+    }
 
     /**
      * 发布文章

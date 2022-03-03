@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urttom.memory.passage.mapper.PassageMapper">
+
+    <select id="getPassageList" resultType="map" parameterType="map">
+        select
+            passage.c_id as id,
+            passage.c_title as title,
+            (
+            select
+                tsu.c_name
+            from
+                db_memory.t_sys_user tsu
+            where
+                tsu.c_id = passage.c_creator) as author,
+            (
+            select
+                tsu.c_avatar
+            from
+                db_memory.t_sys_user tsu
+            where
+                tsu.c_id = passage.c_creator) as avatar,
+            null as cover,
+            passage.d_create_time as publictime,
+            passage.n_browse as views,
+            null as comments,
+            passage.n_like as likes,
+            null as collections,
+            passage.c_labels as labels
+        from
+            db_memory.t_passage passage
+        where
+            passage.c_status = '2'
+        limit 10 offset 0
+    </select>
+
+    <select id="getThemeList" resultType="map">
+        select
+            theme.c_id as id,
+            theme.c_name as name,
+            theme.c_icon as img,
+            (
+            select
+                coalesce(sum(passage.n_browse), 0)
+            from
+                db_memory.t_passage passage
+            where
+                passage.c_theme = theme.c_id) as count,
+            (
+            select
+                to_char(passage.d_create_time, 'yyyy-MM-dd')
+            from
+                db_memory.t_passage passage
+            where
+                passage.c_theme = theme.c_id
+            order by
+                d_create_time desc
+            limit 1) as lastupdate
+        from
+            db_memory.t_xtpz_theme theme
+        where
+            theme.c_valid = '1'
+    </select>
+</mapper>

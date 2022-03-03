@@ -3,29 +3,47 @@
     <div class="content-theme" v-for="theme in themes" :key="theme.id">
       <div class="theme-title">{{theme.name}}</div>
       <div class="theme-icon">
-        <img :src="theme.img">
+        <img :src="theme.img == '' ? require('@/assets/icons/codes.png') : theme.img ">
       </div>
       <div class="theme-info">
         <p>浏览：{{theme.count}}</p>
-        <p>上次更新：{{theme.lastedUpdate}}</p>
+        <p>上次更新：{{theme.lastupdate == null ? '暂无' : theme.lastupdate}}</p>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { getThemeList } from '@/api/passageApi.js'
+import { ElNotification } from 'element-plus'
 export default {
   data () {
     return {
-      themes: [
-        {id: '1', count: 100, lastedUpdate: '2021-12-11', name: '业务知识', img: require('@/assets/icons/knowledge.png')},
-        {id: '2', count: 100, lastedUpdate: '2021-12-11', name: '技术案例', img: require('@/assets/icons/codes.png')},
-        {id: '3', count: 100, lastedUpdate: '2021-12-11', name: '技术规范', img: require('@/assets/icons/rules.png')},
-        {id: '4', count: 100, lastedUpdate: '2021-12-11', name: 'TAP', img: require('@/assets/icons/tap.png')},
-        {id: '1', count: 100, lastedUpdate: '2021-12-11', name: '业务知识', img: require('@/assets/icons/knowledge.png')},
-        {id: '2', count: 100, lastedUpdate: '2021-12-11', name: '技术案例', img: require('@/assets/icons/codes.png')},
-        {id: '3', count: 100, lastedUpdate: '2021-12-11', name: '技术规范', img: require('@/assets/icons/rules.png')},
-        {id: '4', count: 100, lastedUpdate: '2021-12-11', name: 'TAP', img: require('@/assets/icons/tap.png')},
-      ] 
+      themes: [] 
+    }
+  },
+  mounted () {
+    this.getData()
+  },
+  methods: {
+    getData () {
+      getThemeList().then(res => {
+        if (res.code == 200) {
+          this.themes = res.data
+        } else {
+          ElNotification({
+            title: '警告',
+            message: `${res.msg}`,
+            type: 'warning',
+          })
+        }
+      }).catch(err => {
+        console.log(err);
+        ElNotification({
+          title: '错误',
+          message: `${JSON.stringify(err)}`,
+          type: 'error',
+        })
+      })
     }
   }
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.urttom.memory.passage.mapper.PassageMapper">
+    <select id="getThemeList" resultType="map">
+        select
+            theme.c_id as id,
+            theme.c_name as name,
+            theme.c_icon as img,
+            (
+            select
+                coalesce(sum(passage.n_browse), 0)
+            from
+                db_memory.t_passage passage
+            where
+                passage.c_theme = theme.c_id) as count,
+            (
+            select
+                to_char(passage.d_create_time, 'yyyy-MM-dd')
+            from
+                db_memory.t_passage passage
+            where
+                passage.c_theme = theme.c_id
+            order by
+                d_create_time desc
+            limit 1) as lastupdate
+        from
+            db_memory.t_xtpz_theme theme
+        where
+            theme.c_valid = '1'
+    </select>
+</mapper>

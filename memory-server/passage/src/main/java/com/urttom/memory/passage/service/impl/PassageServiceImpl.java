@@ -9,11 +9,34 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @Service
 public class PassageServiceImpl implements PassageService {
 
     @Autowired
     private PassageMapper passageMapper;
+
+    @Override
+    public List<Map<String, Object>> getPassageList(int pageNum, int pageSize) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("limit", pageSize);
+        params.put("offset", (pageNum - 1) * pageSize);
+
+        List<Map<String, Object>> passageList = passageMapper.getPassageList(params);
+        passageList.forEach(passage -> {
+
+        });
+
+        return null;
+    }
+
+    @Override
+    public List<Map<String, Object>> getThemeList() {
+        return passageMapper.getThemeList();
+    }
 
     @Override
     public void publishPassage(TPassage passage, String userId) {
